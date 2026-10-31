@@ -27,15 +27,30 @@
             <span class="title-mark">ForceLDM</span>: A Force-aware Latent Dynamics Model for Contact-Rich Manipulation
           </h1>
           <p class="subtitle is-4 publication-subtitle">
-            Learning Future Dynamics through Teacher–Student Distillation.
+            Learning Latent Dynamics through Teacher–Student Distillation.
           </p>
 
+          <!-- Author information temporarily hidden
           <div class="is-size-5 publication-authors">
-            <span class="author-block">Anonymous Authors</span>
+            <span class="author-block">Peiyuan Tang<sup>1,4*</sup>,</span>
+            <span class="author-block">Yao Li<sup>2,3*</sup>,</span>
+            <span class="author-block">Xiaodong Zhang<sup>2&dagger;</sup>,</span>
+            <span class="author-block">Wuyang Zhang<sup>2,3,4</sup>,</span><br>
+            <span class="author-block">Qin Xia<sup>1</sup>,</span>
+            <span class="author-block">Yanyong Zhang<sup>2</sup>,</span>
+            <span class="author-block">Zijiang James Yang<sup>2,5&dagger;</sup></span>
           </div>
           <div class="is-size-6 publication-authors">
-            <span class="author-block">Paper under review</span>
+            <div class="publication-affiliations">
+              <span><sup>1</sup>Xi'an Jiaotong University</span>
+              <span><sup>2</sup>University of Science and Technology of China</span>
+              <span><sup>3</sup>Suzhou Institute for Advanced Research, USTC</span>
+              <span><sup>4</sup>Suzhou Artificial Intelligence Laboratory</span>
+              <span><sup>5</sup>Synkrotron, Inc.</span>
+            </div>
+            <div><sup>*</sup>Equal contribution &nbsp; <sup>&dagger;</sup>Corresponding authors</div>
           </div>
+          -->
 
           <div class="column has-text-centered">
             <div class="publication-links">
@@ -46,9 +61,9 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="#BibTeX" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="ai ai-arxiv"></i></span>
-                  <span>BibTeX</span>
+                <a href="https://huggingface.co/datasets/PeiYuan001/forceldm-dataset" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-database"></i></span>
+                  <span>Dataset</span>
                 </a>
               </span>
               <span class="link-block">
@@ -77,90 +92,64 @@
   </div>
 </section>
 
+<!-- Abstract temporarily hidden
 <section class="section">
   <div class="container is-max-desktop abstract-container">
     <div class="columns is-centered has-text-centered">
       <div class="column">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Contact-rich manipulation requires precise control and complex physical interaction with the environment,
-            posing significant challenges for robot policy learning. Vision-only policies struggle with such tasks, as
-            contact states and force feedback are difficult to infer from vision alone. Existing methods mitigate this
-            issue by incorporating force or tactile sensing. However, they often treat these signals as auxiliary
-            observations rather than using them to model future interaction dynamics, leading to inefficient modality
-            utilization and limited generalization.
-          </p>
-          <p>
-            To address this, we propose <span class="method-name">ForceLDM</span>, a force-aware latent dynamics model
-            that enables the policy to anticipate future contact and motion dynamics in latent space and use them to
-            guide action generation. Rather than predicting future observations in pixel space, which often requires
-            large amounts of data and risk overfitting irrelevant details, ForceLDM learns a compact task-relevant
-            representation through knowledge distillation. Specifically, a teacher network with privileged access to
-            future force/torque and optical flow signals extracts future dynamic features, which are then distilled into
-            a student network trained only on current observations.
-          </p>
-          <p>
-            This enables the student to reason about upcoming contacts and physical dynamics at deployment without
-            relying on future sensory inputs. To improve robustness and generalization, we further introduce a
-            curriculum-based progressive noise injection strategy to mitigate over-reliance on future features.
-            Experiments on five real-world contact-rich manipulation tasks demonstrate that ForceLDM significantly
-            outperforms state-of-the-art baselines, generalizes effectively to novel objects, and remains robust to
-            environmental perturbations.
-          </p>
+        <details class="abstract-disclosure">
+          <summary>
+            <h2 class="title is-3">Abstract</h2>
+          </summary>
+          <div class="content has-text-justified">
+          <p>Contact-rich manipulation requires fine-grained control and complex physical interactions with the environment, posing significant challenges for robot policy learning. Vision-only policies struggle with such tasks, as contact states and interaction forces are difficult to infer from visual observations alone. Existing methods mitigate this issue by incorporating force or tactile sensing. However, they often treat these signals as auxiliary observations without fully exploiting their role in modeling future interaction dynamics.</p>
+          <p>To address this, we propose ForceLDM, a <span class="method-name">force-aware latent dynamics model</span> that learns future contact and motion dynamics to guide action generation. Rather than directly predicting future observations, which can <span class="method-name">entangle task-relevant dynamics with irrelevant sensory details</span>, ForceLDM <span class="method-name">learns a compact representation of future dynamics through knowledge distillation.</span> Specifically, a teacher network with privileged future force/torque and optical flow signals extracts future dynamic features, which are then distilled into a student network trained only on current observations.</p>
+          <p>This enables the student model to reason about upcoming contacts and physical dynamics without relying on future sensory inputs at deployment. To improve robustness and generalization, we further introduce a curriculum-based progressive noise injection strategy to mitigate over-reliance on future features. Experiments on five real-world contact-rich manipulation tasks demonstrate that ForceLDM significantly outperforms state-of-the-art baselines, generalizes effectively to novel objects, and remains robust to environmental perturbations.</p>
         </div>
+        </details>
       </div>
     </div>
   </div>
 </section>
+-->
 
 <section class="hero teaser">
   <div class="container is-fluid motivation-container">
     <div class="hero-body">
       <div class="section-heading has-text-centered">
         <h2 class="title is-3 section-title">Motivation</h2>
-        <p class="section-subtitle">Why learn future interaction dynamics importantly?</p>
+        <p class="section-subtitle">Why Learn Future Interaction Dynamics through Distillation?</p>
         <div class="motivation-points">
           <div class="motivation-point">
             <span class="motivation-number">01</span>
             <div>
-              <h3>Direct force conditioning is not enough</h3>
-              <p>
-                Rich visual features can dominate sparse force signals, causing the policy to ignore physical feedback
-                and suffer from modality collapse.
-              </p>
+              <h3>Adding force alone is not enough</h3>
+              <p>When force is simply added as an input, rich visual cues can dominate the sparse force signals. The policy may still learn to copy demonstrated actions without understanding how contact will evolve, limiting its ability to handle new situations.</p>
             </div>
           </div>
           <div class="motivation-point">
             <span class="motivation-number">02</span>
             <div>
-              <h3>From reactive control to anticipatory reasoning</h3>
-              <p>
-                Observation-to-action policies only react to the present. Future dynamics let the policy anticipate
-                contact changes and reduce trajectory overfitting.
-              </p>
+              <h3>Predicting video can miss what matters for control</h3>
+              <p>A realistic-looking video does not guarantee accurate contact dynamics. Predicting full frames also spends effort on backgrounds, appearance, and sensor noise. Adding force sensing to video models further requires substantial computation and synchronized training data.</p>
             </div>
           </div>
           <div class="motivation-point motivation-point-accent">
             <span class="motivation-number">03</span>
             <div>
-              <h3>Implicit latent dynamics provide the right abstraction</h3>
-              <p>
-                Predicting future RGB is costly and captures irrelevant details. Distilling future force and optical
-                flow yields compact, action-relevant dynamics.
-              </p>
+              <h3>Learn the motion and contact that matter</h3>
+              <p>Optical flow directly describes how the robot and objects move, while force/torque signals reveal their contact interactions. Together, they capture complementary information for control. Action-guided distillation condenses these future signals into a compact representation, helping the policy learn what matters for choosing actions without reconstructing every sensory detail.</p>
             </div>
           </div>
         </div>
       </div>
       <div class="figure-crop figure-crop-1">
-        <img src="./static/images/figure1.png?v=20261009" alt="Comparison of force-aware VLA, video-based world action models, and our method.">
+        <img src="./static/images/figure1.png?v=f04591b96c84" alt="Comparison of force-aware VLA, video-based world action models, and our method.">
       </div>
-      <p class="figure-caption has-text-left">
-        <strong>Figure 1.</strong> Conceptual comparison. Force-aware VLAs react directly from current observations,
-        while video-based world action models explicitly predict future frames. Our method distills future force and
-        motion into a student policy, providing physical foresight without future prediction at deployment.
-      </p>
+      <details class="figure-caption has-text-left caption-disclosure">
+        <summary><strong>Figure 1.</strong> Comparison with prior methods.</summary>
+        <p>(a) Force-aware VLAs incorporate force feedback but lack explicit modeling of future interaction dynamics. (b) Video-based WAMs model future dynamics through visual prediction, but often lack force/tactile feedback and may fit task-irrelevant visual details. (c) ForceLDM learns compact, action-relevant future dynamics by distilling future motion and force cues from a privileged teacher.</p>
+      </details>
     </div>
   </div>
 </section>
@@ -169,13 +158,16 @@
   <div class="container is-fluid figure-container">
     <div class="section-heading has-text-centered">
       <h2 class="title is-3 section-title">Method</h2>
-      <p class="section-subtitle">Distill future physical dynamics into a deployable policy</p>
+      <!-- Method introduction temporarily hidden
+<p class="section-subtitle">Distill future physical dynamics into a deployable policy</p>
       <p class="section-lead">
         ForceLDM transfers compact future force and motion features from a privileged teacher to a student, using
         progressive noise for robust deployment.
       </p>
+-->
     </div>
-    <div class="content has-text-justified method-summary">
+    <!-- Method introduction temporarily hidden
+<div class="content has-text-justified method-summary">
       <p>
         ForceLDM guides action generation with latent physical dynamics. It first encodes future wrench sequences and
         optical flow as compact force and motion tokens. A teacher-student distillation framework transfers privileged
@@ -183,55 +175,18 @@
         queries. At inference time, future signals and the teacher branch are discarded.
       </p>
     </div>
+-->
     <div class="figure-crop figure-crop-2">
-      <img src="./static/images/figure2.png" alt="Overview of ForceLDM.">
+      <img src="./static/images/figure2.png?v=a3f39ded4277" alt="Overview of ForceLDM.">
     </div>
-    <p class="figure-caption has-text-left">
-      <strong>Figure 2.</strong> Overview of our proposed ForceLDM. It consists of (a) a teacher-student distillation
-      framework that transfers future-aware dynamics representations to the student policy, (b) a future dynamics
-      encoder that converts future force and optical flow into force and motion tokens, and (c) progressive noise
-      injection that adds scheduled noise to the student's latent queries to improve generalization.
-    </p>
+    <details class="figure-caption has-text-left caption-disclosure">
+        <summary><strong>Figure 2.</strong> Overview of ForceLDM.</summary>
+        <p>(a) Both teacher and student generate actions from current multimodal observations and language instructions. The teacher additionally receives future force and motion tokens, and its future-aware representations are distilled into the student&#39;s future queries. (b) The future dynamics encoder converts future force/torque and optical flow into compact force and motion tokens. (c) Progressive noise injection perturbs the student&#39;s future queries with scheduled noise to improve generalization.</p>
+      </details>
 
-    <div class="columns is-variable is-5 method-grid">
-      <div class="column">
-        <div class="info-card">
-          <span class="card-number">01</span>
-          <h3 class="title is-5">Future Force Encoding</h3>
-          <p>
-            Future 6D wrench measurements provide direct supervision for contact onset, resistance, sliding, and
-            force buildup.
-          </p>
-        </div>
-      </div>
-      <div class="column">
-        <div class="info-card">
-          <span class="card-number">02</span>
-          <h3 class="title is-5">Future Motion Encoding</h3>
-          <p>
-            Optical flow captures robot and object motion without forcing the model to reconstruct redundant RGB details.
-          </p>
-        </div>
-      </div>
-      <div class="column">
-        <div class="info-card">
-          <span class="card-number">03</span>
-          <h3 class="title is-5">Latent Distillation</h3>
-          <p>
-            Student latent queries are aligned with teacher dynamics representations, enabling future-aware reasoning
-            from causal inputs.
-          </p>
-        </div>
-      </div>
-      <div class="column">
-        <div class="info-card">
-          <span class="card-number">04</span>
-          <h3 class="title is-5">Progressive Noise</h3>
-          <p>
-            A curriculum gradually perturbs student queries, preventing shortcut dependence on privileged teacher features.
-          </p>
-        </div>
-      </div>
+    <div class="deployment-note">
+      <span class="deployment-badge">Training</span>
+      <p>A teacher with access to future force/torque and optical flow <strong>distills action-relevant dynamics into a student</strong>, while progressive noise injection improves generalization.</p>
     </div>
     <div class="deployment-note">
       <span class="deployment-badge">Inference</span>
@@ -240,22 +195,28 @@
   </div>
 </section>
 
+
+
 <section class="section">
   <div class="container is-fluid figure-container">
     <h2 class="title is-3 has-text-centered">Real-World Tasks</h2>
-    <div class="content has-text-justified">
+    <!-- Description temporarily hidden
+<div class="content has-text-justified">
       <p>
         We evaluate on a 7-DoF xArm7 manipulator with a wrist-mounted 6D force/torque sensor, a wrist camera, and a
         fixed external camera. The benchmark covers precise insertion, rigid-body assembly, object reorientation, and
         sustained surface contact.
       </p>
     </div>
+-->
     <div class="figure-crop figure-crop-3">
       <img src="./static/images/figure3.png" alt="Five real-world contact-rich manipulation tasks.">
     </div>
-    <p class="figure-caption has-text-centered">
+    <!-- Figure 3 caption temporarily hidden
+<p class="figure-caption has-text-centered">
       <strong>Figure 3.</strong> Five real-world contact-rich manipulation tasks used in our experiments.
     </p>
+-->
 
     <div class="task-list">
       <span>USB Insertion</span>
@@ -270,18 +231,22 @@
 <section class="section rollouts-section" id="rollouts">
   <div class="container is-fluid rollout-container">
     <div class="section-heading has-text-centered">
-      <h2 class="title is-3 section-title">Real-world Evidence</h2>
-      <p class="section-subtitle">Contact-rich rollouts across five tasks</p>
+      <h2 class="title is-3 section-title">Real-World Rollouts</h2>
+      <!-- Description temporarily hidden
+<p class="section-subtitle">Contact-rich rollouts across five tasks</p>
+-->
     </div>
-    <div class="content has-text-centered rollout-intro">
+    <!-- Description temporarily hidden
+<div class="content has-text-centered rollout-intro">
       <p>
         In-distribution successes, unseen conditions, perturbations, and representative failures. Videos load only as
         they approach the viewport for a faster page.
       </p>
     </div>
+-->
 
     <div class="rollout-task">
-      <h3 class="title is-4">USB Insertion</h3>
+      <h3 class="title is-4">USB Insertion <span class="rollout-speed">Default 2&times; speed</span></h3>
       <div class="rollout-grid">
         <div class="video-slot" data-label="ID · Success 01"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/USB_ID_success_1.mp4" type="video/mp4"></video></div>
         <div class="video-slot" data-label="ID · Success 02"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/USB_ID_success_2.mp4" type="video/mp4"></video></div>
@@ -292,10 +257,10 @@
     </div>
 
     <div class="rollout-task">
-      <h3 class="title is-4">Gear Assembly</h3>
+      <h3 class="title is-4">Gear Assembly <span class="rollout-speed">Default 2&times; speed</span></h3>
       <div class="rollout-grid">
         <div class="video-slot" data-label="ID · Success 01"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/Gear_ID_success_1.mp4" type="video/mp4"></video></div>
-        <div class="video-slot" data-label="ID · Success 02"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/Gear_ID_success_2.mp4" type="video/mp4"></video></div>
+        <div class="video-slot" data-label="OOD · Unseen Height"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/Gear_OOD_success_2.mp4" type="video/mp4"></video></div>
         <div class="video-slot" data-label="OOD · Success"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/Gear_OOD_success_1.mp4" type="video/mp4"></video></div>
         <div class="video-slot" data-label="Perturbation · Success"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/Gear_perturbation_success1_.mp4" type="video/mp4"></video></div>
         <div class="video-slot failure-slot" data-label="ID · Failure"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/Gear_ID_failure_1.mp4" type="video/mp4"></video></div>
@@ -303,18 +268,18 @@
     </div>
 
     <div class="rollout-task">
-      <h3 class="title is-4">Box Flipping</h3>
+      <h3 class="title is-4">Box Flipping <span class="rollout-speed">Default 2&times; speed</span></h3>
       <div class="rollout-grid">
         <div class="video-slot" data-label="ID · Success 01"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/Box_ID_success_1.mp4" type="video/mp4"></video></div>
         <div class="video-slot" data-label="ID · Success 02"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/Box_ID_success_2.mp4" type="video/mp4"></video></div>
-        <div class="video-slot" data-label="OOD · Success 01"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/Box_OOD_success_1.mp4" type="video/mp4"></video></div>
+        <div class="video-slot" data-label="OOD · Unseen Size"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/Box_OOD_success_5.mp4" type="video/mp4"></video></div>
         <div class="video-slot" data-label="OOD · Success 02"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/Box_OOD_success_2.mp4" type="video/mp4"></video></div>
         <div class="video-slot failure-slot" data-label="OOD · Failure"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/Box_OOD_failure_1.mp4" type="video/mp4"></video></div>
       </div>
     </div>
 
     <div class="rollout-task">
-      <h3 class="title is-4">Board Wiping</h3>
+      <h3 class="title is-4">Board Wiping <span class="rollout-speed">Default 2&times; speed</span></h3>
       <div class="rollout-grid">
         <div class="video-slot" data-label="ID · Success 01"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/wiping_ID_success_1.mp4" type="video/mp4"></video></div>
         <div class="video-slot" data-label="ID · Success 02"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/wiping_ID_success_2.mp4" type="video/mp4"></video></div>
@@ -325,7 +290,7 @@
     </div>
 
     <div class="rollout-task">
-      <h3 class="title is-4">VGA Plugging</h3>
+      <h3 class="title is-4">VGA Plugging <span class="rollout-speed">Default 2&times; speed</span></h3>
       <div class="rollout-grid">
         <div class="video-slot" data-label="ID · Success 01"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/vga_ID_success_1.mp4" type="video/mp4"></video></div>
         <div class="video-slot" data-label="ID · Success 02"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/vga_ID_success_2.mp4" type="video/mp4"></video></div>
@@ -333,6 +298,37 @@
         <div class="video-slot" data-label="ID · Success 04"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/vga_ID_success_4.mp4" type="video/mp4"></video></div>
         <div class="video-slot failure-slot" data-label="ID · Failure"><video muted loop playsinline controls preload="none"><source data-src="./videos_web/vga_ID_failure_1.mp4" type="video/mp4"></video></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section rollouts-section dynamics-section" id="future-dynamics">
+  <div class="container is-fluid dynamics-container">
+    <h2 class="title is-3 has-text-centered">Probing Latent Dynamics</h2>
+    <p class="dynamics-description">We freeze the trained ForceLDM policy and extract the layer-12 hidden states of its future force and motion queries. Lightweight probes are trained to decode future contact forces and optical flow while keeping the policy fixed.</p>
+    <div class="dynamics-task">
+      <h3 class="title is-4">USB Insertion</h3>
+      <video class="dynamics-video" muted loop playsinline controls preload="none" poster="./static/images/future_dynamics_usb.jpg?v=fc59ea3fbfc8" aria-label="USB Insertion with predicted optical flow and synchronized force curves">
+        <source data-src="./videos_web/future_dynamics_usb.mp4?v=fc59ea3fbfc8" type="video/mp4">
+      </video>
+    </div>
+    <div class="dynamics-task">
+      <h3 class="title is-4">Gear Assembly</h3>
+      <video class="dynamics-video" muted loop playsinline controls preload="none" poster="./static/images/future_dynamics_gear.jpg?v=6b5307d0c5d2" aria-label="Gear Assembly with predicted optical flow and synchronized force curves">
+        <source data-src="./videos_web/future_dynamics_gear.mp4?v=6b5307d0c5d2" type="video/mp4">
+      </video>
+    </div>
+    <div class="dynamics-task">
+      <h3 class="title is-4">Box Flipping</h3>
+      <video class="dynamics-video" muted loop playsinline controls preload="none" poster="./static/images/future_dynamics_box.jpg?v=31f2f4a4f15b" aria-label="Box Flipping with predicted optical flow and synchronized force curves">
+        <source data-src="./videos_web/future_dynamics_box.mp4?v=31f2f4a4f15b" type="video/mp4">
+      </video>
+    </div>
+    <div class="dynamics-task">
+      <h3 class="title is-4">Board Wiping</h3>
+      <video class="dynamics-video" muted loop playsinline controls preload="none" poster="./static/images/future_dynamics_wiping.jpg?v=1b0d711dd95b" aria-label="Board Wiping with predicted optical flow and synchronized force curves">
+        <source data-src="./videos_web/future_dynamics_wiping.mp4?v=1b0d711dd95b" type="video/mp4">
+      </video>
     </div>
   </div>
 </section>
@@ -345,21 +341,21 @@
         <div class="result-card">
           <div class="result-number">87.1%</div>
           <div class="result-label">Average ID success rate</div>
-          <p>Best overall performance across five real-world contact-rich tasks.</p>
+          <!-- <p>Best overall performance across five real-world contact-rich tasks.</p> -->
         </div>
       </div>
       <div class="column">
         <div class="result-card">
           <div class="result-number">68.9%</div>
           <div class="result-label">Average OOD success rate</div>
-          <p>Improves over the strongest OOD baseline by 20.0 percentage points.</p>
+          <!-- <p>Improves over the strongest OOD baseline by 20.0 percentage points.</p> -->
         </div>
       </div>
       <div class="column">
         <div class="result-card">
           <div class="result-number">85.0%</div>
           <div class="result-label">VGA Plugging success rate</div>
-          <p>Large gains on high-precision insertion requiring fine force-aware correction.</p>
+          <!-- <p>Large gains on high-precision insertion requiring fine force-aware correction.</p> -->
         </div>
       </div>
     </div>
@@ -449,11 +445,12 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{anonymous2026forcewam,
-  title   = {ForceWAM: A Force-aware Latent World Action Model for Contact-Rich Manipulation},
-  author  = {Anonymous Authors},
-  journal = {Under Review},
-  year    = {2026}
+    <pre><code>@inproceedings{tang2026forceldm,
+  title     = {Force{LDM}: A Force-aware Latent Dynamics Model for Contact-Rich Manipulation},
+  author    = {Tang, Peiyuan and Li, Yao and Zhang, Xiaodong and Zhang, Wuyang and Xia, Qin and Zhang, Yanyong and Yang, Zijiang James},
+  booktitle = {The Fortieth Annual Conference on Neural Information Processing Systems},
+  year      = {2026},
+  url       = {https://openreview.net/forum?id=0j9L12vSKx}
 }</code></pre>
   </div>
 </section>
@@ -494,7 +491,16 @@
     });
   }, { rootMargin: '240px 0px', threshold: 0.15 });
 
-  rolloutVideos.forEach((video) => videoObserver.observe(video));
+  document.querySelectorAll('.dynamics-video').forEach((video) => videoObserver.observe(video));
+
+  rolloutVideos.forEach((video) => {
+    video.defaultPlaybackRate = 2;
+    video.playbackRate = 2;
+    video.addEventListener('loadedmetadata', () => {
+      video.playbackRate = 2;
+    }, { once: true });
+    videoObserver.observe(video);
+  });
 </script>
 </body>
 </html>
